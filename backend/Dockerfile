@@ -20,7 +20,7 @@ COPY ./my-chatapp /myChatapp
 # Set the working directory for your app in the container
 WORKDIR /myChatapp
 # Install required Python packages from requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r /myChatapp/requirements.txt
 # Install additional dependencies if needed for MySQL client
 RUN apt install python3-dev default-libmysqlclient-dev build-essential pkg-config -y
 # Install the MySQL client library for Python
