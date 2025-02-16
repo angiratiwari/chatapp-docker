@@ -12,7 +12,7 @@ RUN mkdir /myChatapp
 COPY ./my-chatapp /myChatapp
 
 # List the contents of /myChatapp to confirm requirements.txt is present
-RUN ls /myChatapp
+#RUN ls /myChatapp
 
 
 #COPY my-chatapp /myChatapp
