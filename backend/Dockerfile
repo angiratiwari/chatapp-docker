@@ -6,7 +6,17 @@ RUN apt-get install python3 python3-pip python3-dev default-libmysqlclient-dev b
 RUN apt-get update
 RUN apt-get install --yes python3-pip
 RUN mkdir /myChatapp
-COPY my-chatapp /myChatapp
+
+
+# Copy the contents of backend/my-chatapp into /myChatapp in the container
+COPY ./my-chatapp /myChatapp
+
+# List the contents of /myChatapp to confirm requirements.txt is present
+RUN ls /myChatapp
+
+
+#COPY my-chatapp /myChatapp
+
 # Set the working directory for your app in the container
 WORKDIR /myChatapp
 # Install required Python packages from requirements.txt
