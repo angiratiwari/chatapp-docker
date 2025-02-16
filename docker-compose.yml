@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  database:
+    build: ./database
+    container_name: chatapp-database
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: chatapp
+      MYSQL_HOST: chatapp-database  # Use the service name here for inter-container communication
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - chatapp-network
+
+  backend:
+    build: ./backend
+    container_name: chatapp-backend
+    depends_on:
+      - database
+    environment:
+      CHATDB: chatapp
+      CHATDBUSER: root
+      CHATDBPASSWORD: rootpassword
+      CHATDBHOST: chatapp-database
+    ports:
+      - "8000:8000"
+    networks:
+      - chatapp-network
+    command: ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8000", "fundoo.wsgi:application"]
+
+  frontend:
+    build: ./frontend
+    container_name: chatapp-frontend
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - chatapp-network
+
+volumes:
+  db_data:
+  frontend_data:
+  backend_data:
+
+networks:
+  chatapp-network:
+    driver: bridge
+
