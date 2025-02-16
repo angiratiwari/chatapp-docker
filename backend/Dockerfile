@@ -9,7 +9,7 @@ RUN mkdir /myChatapp
 
 
 # Copy the contents of backend/my-chatapp into /myChatapp in the container
-COPY ./my-chatapp /myChatapp
+COPY ./chatapp/backend/my-chatapp /myChatapp/
 
 # List the contents of /myChatapp to confirm requirements.txt is present
 #RUN ls /myChatapp
@@ -19,6 +19,9 @@ COPY ./my-chatapp /myChatapp
 
 # Set the working directory for your app in the container
 WORKDIR /myChatapp
+
+RUN ls -l /myChatapp
+
 # Install required Python packages from requirements.txt
 RUN pip3 install -r /myChatapp/requirements.txt
 # Install additional dependencies if needed for MySQL client
