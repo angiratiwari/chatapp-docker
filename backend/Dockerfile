@@ -5,8 +5,8 @@ RUN apt-get update
 RUN apt-get install python3 python3-pip python3-dev default-libmysqlclient-dev build-essential -y
 RUN apt-get update
 RUN apt-get install --yes python3-pip
-RUN mkdir /myChatapp
-
+RUN mkdir /my-chatapp/myChatapp
+WORKDIR /my-chatapp/myChatapp
 
 # Copy the contents of backend/my-chatapp into /myChatapp in the container
 #COPY ./chatapp/backend/my-chatapp /myChatapp/
@@ -15,10 +15,10 @@ RUN mkdir /myChatapp
 #RUN ls /myChatapp
 
 
-COPY my-chatapp /myChatapp
+COPY my-chatapp /my-chatapp/myChatapp
 
 # Set the working directory for your app in the container
-WORKDIR /myChatapp
+#WORKDIR /myChatapp
 
 #RUN ls -l /myChatapp
 
@@ -32,6 +32,6 @@ RUN pip3 install mysqlclient
 # Expose port 8000 to the outside world
 EXPOSE 8000
 # Set the working directory to the Django app's folder
-WORKDIR /myChatapp/fundoo/
+WORKDIR /my-chatapp/myChatapp/fundoo/
 # Make sure the database schema is applied and then run the Django development server
 ENTRYPOINT python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000
